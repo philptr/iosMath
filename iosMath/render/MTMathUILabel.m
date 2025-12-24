@@ -49,7 +49,8 @@
     _textAlignment = kMTTextAlignmentLeft;
     _displayList = nil;
     _displayErrorInline = true;
-    self.backgroundColor = [MTColor clearColor];
+    
+    [self setBackgroundColor:[MTColor clearColor]];
     
     _textColor = [MTColor blackColor];
     _errorLabel = [[MTLabel alloc] init];
@@ -214,11 +215,19 @@
 }
 
 #if !TARGET_OS_IPHONE
+
 - (void)layout
 {
     [self layoutSubviews];
     [super layout];
 }
+
+- (void)setBackgroundColor:(NSColor *)backgroundColor
+{
+    self.layer.backgroundColor = [NSColor clearColor].CGColor;
+    [self setWantsLayer:YES];
+}
+
 #endif
 
 - (CGSize) sizeThatFits:(CGSize)size
